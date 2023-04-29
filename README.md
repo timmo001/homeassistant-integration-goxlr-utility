@@ -27,7 +27,8 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 > Not all these features may be possible, but are ideas for the future. Note that I own a GoXLR Mini, so I can only test on that device.
 
+- Add [logos](https://github.com/GoXLR-on-Linux/goxlr-utility/tree/main/daemon/resources) to the brands repo
 - Button Pressed Binary Sensors
-- Muted Binary Sensors
 - Color sensors for the faders and buttons
+- Muted Binary Sensors
 - Make this an official integration

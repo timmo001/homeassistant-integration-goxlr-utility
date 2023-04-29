@@ -4,7 +4,7 @@
 
 > This integration does not connect to the official GoXLR application!
 
-This is a third party application that allows for control of the GoXLR on Linux, Mac and Windows.
+This is a third party application from [@GoXLR-on-Linux](https://github.com/GoXLR-on-Linux) that allows for control of the GoXLR on Linux, Mac and Windows.
 
 Be sure to check out the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) project for more information.
 

@@ -1,0 +1,37 @@
+---
+name: "Release"
+
+on:
+  release:
+    types:
+      - published
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: "🚀 Release - GoXLR Utility"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "⬇️ Checkout the repository"
+        uses: actions/checkout@v3
+      - name: "🔢 Adjust version number"
+        shell: bash
+        run: |
+          version="${{ github.event.release.tag_name }}"
+          version="${version,,}"
+          version="${version#v}"
+          yq e -P -o=json \
+            -i ".version = \"${version}\"" \
+            "${{ github.workspace }}/custom_components/goxlr_utility/manifest.json"
+      - name: "📦 Created zipped release package"
+        shell: bash
+        run: |
+          cd "${{ github.workspace }}/custom_components/goxlr_utility"
+          zip goxlr_utility.zip -r ./
+      - name: "⬆ Upload zip to release"
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_PATH: ${{ github.workspace }}/custom_components/goxlr_utility/goxlr_utility.zip
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -2,6 +2,12 @@
 
 [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) integration for [Home Assistant](https://www.home-assistant.io/).
 
+> This integration does not connect to the official GoXLR application!
+
+This is a third party application that allows for control of the GoXLR on Linux, Mac and Windows.
+
+Be sure to check out the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) project for more information.
+
 ## Installation
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=timmo001&repository=homeassistant-integration-goxlr-utility&category=integration)

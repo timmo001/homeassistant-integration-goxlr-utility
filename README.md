@@ -18,3 +18,16 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 - You currently need to add `--http-bind-address 0.0.0.0` to the `goxlr-daemon` command in your respective OS. See [here](https://github.com/GoXLR-on-Linux/goxlr-utility/issues/64) for progress on this being added to the UI. For Windows, the easiest way is to edit the shortcut in `%appdata%\Microsoft\Windows\Start Menu\Programs\Startup` and add the argument to the end of the `Target` field.
 - Add to Home Assistant using the UI
+
+## Features
+
+- Volume Sensors
+
+### Planned
+
+> Not all these features may be possible, but are ideas for the future. Note that I own a GoXLR Mini, so I can only test on that device.
+
+- Button Pressed Binary Sensors
+- Muted Binary Sensors
+- Color sensors for the faders and buttons
+- Make this an official integration

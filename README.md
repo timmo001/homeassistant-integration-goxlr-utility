@@ -36,12 +36,10 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 - Add [logos](https://github.com/GoXLR-on-Linux/goxlr-utility/tree/main/daemon/resources) to the brands repo
 
-### Controls
-
-- Lighting
-
 <!-- ### Binary Sensors -->
+<!-- ### Sensors -->
+### Lights
 
-### Sensors
-
-- Color sensors for the faders and buttons
+- Accent
+- Buttons
+- Faders

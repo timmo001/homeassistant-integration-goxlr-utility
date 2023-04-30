@@ -35,11 +35,12 @@ class GoXLRUtilityEntity(CoordinatorEntity[GoXLRUtilityDataUpdateCoordinator]):
         self._configuration_url = (
             f"http://{entry_data[CONF_HOST]}:{entry_data[CONF_PORT]}"
         )
-        self._identifier = coordinator.data.hardware.serial_number
-        self._manufacturer = coordinator.data.hardware.usb_device.manufacturer_name
         self._hw_version = ".".join(
             [str(item) for item in coordinator.data.hardware.usb_device.version]
         )
+        self._identifier = coordinator.data.hardware.serial_number
+        self._manufacturer = coordinator.data.hardware.usb_device.manufacturer_name
+        self._model = coordinator.data.hardware.usb_device.product_name
 
     @property
     def unique_id(self) -> str:
@@ -56,10 +57,11 @@ class GoXLRUtilityEntity(CoordinatorEntity[GoXLRUtilityDataUpdateCoordinator]):
         """Return device information about this GoXLR Utility instance."""
         return DeviceInfo(
             configuration_url=self._configuration_url,
+            hw_version=self._hw_version,
             identifiers={(DOMAIN, self._identifier)},
             manufacturer=self._manufacturer,
+            model=self._model,
             name=self._device_name,
-            hw_version=self._hw_version,
         )
 
 

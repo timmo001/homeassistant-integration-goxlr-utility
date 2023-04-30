@@ -9,6 +9,7 @@ from goxlrutilityapi.models.map_item import MapItem
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.typing import StateType
@@ -38,6 +39,17 @@ async def async_setup_entry(
                 value=lambda data, key=key: get_volume_percentage(data, key),
             )
         )
+
+    sensor_descrpitions.append(
+        GoXLRUtilitySensorEntityDescription(
+            key="microphone_profile_name",
+            name="Microphone profile name",
+            icon="mdi:microphone",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_visible_default=False,
+            value=lambda data: data.mic_profile_name,
+        )
+    )
 
     entities = []
     for description in sensor_descrpitions:

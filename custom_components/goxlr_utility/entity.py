@@ -3,6 +3,7 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
+from homeassistant.components.binary_sensor import BinarySensorEntityDescription
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.helpers.entity import DeviceInfo
@@ -60,6 +61,13 @@ class GoXLRUtilityEntity(CoordinatorEntity[GoXLRUtilityDataUpdateCoordinator]):
             name=self._device_name,
             hw_version=self._hw_version,
         )
+
+
+@dataclass
+class GoXLRUtilityBinarySensorEntityDescription(BinarySensorEntityDescription):
+    """Class describing GoXLR Utility binary sensor entities."""
+
+    value: Callable = round
 
 
 @dataclass

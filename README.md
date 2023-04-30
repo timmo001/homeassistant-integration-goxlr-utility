@@ -21,13 +21,28 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 ## Features
 
-- Volume Sensors
+### Binary Sensors
 
-### Planned
+- Slider muted
+
+### Sensors
+
+- Volume
+
+## Planned Features
 
 > Not all these features may be possible, but are ideas for the future.
 
 - Add [logos](https://github.com/GoXLR-on-Linux/goxlr-utility/tree/main/daemon/resources) to the brands repo
-- Binary Sensors - Button Pressed, Slider muted
-- Controls
-- Sensors - Color sensors for the faders and buttons
+
+### Controls
+
+- Lighting
+
+### Binary Sensors
+
+- Button Pressed
+
+### Sensors
+
+- Color sensors for the faders and buttons

@@ -1,6 +1,6 @@
 # Home Assistant Integration - GoXLR Utility
 
-[GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) integration for [Home Assistant](https://www.home-assistant.io/).
+[GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) integration for [Home Assistant](https://www.home-assistant.io/) using [goxlr-utility-api-py](https://github.com/timmo001/goxlr-utility-api-py).
 
 > This integration does not connect to the official GoXLR application!
 

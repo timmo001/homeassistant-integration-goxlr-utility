@@ -1,9 +1,11 @@
 """Entities for GoXLR Utility integration."""
 from collections.abc import Callable
 from dataclasses import dataclass
+from enum import Enum
 from typing import Any
 
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
+from homeassistant.components.light import LightEntityDescription
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.helpers.entity import DeviceInfo
@@ -11,6 +13,16 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import GoXLRUtilityDataUpdateCoordinator
+
+
+class ItemType(Enum):
+    """Enum for GoXLR Utility item types."""
+
+    ACCENT = "accent"
+    BUTTON_ACTIVE = "button_active"
+    BUTTON_INACTIVE = "button_inactive"
+    FADER_BOTTOM = "fader_bottom"
+    FADER_TOP = "fader_top"
 
 
 class GoXLRUtilityEntity(CoordinatorEntity[GoXLRUtilityDataUpdateCoordinator]):
@@ -71,6 +83,15 @@ class GoXLRUtilityBinarySensorEntityDescription(BinarySensorEntityDescription):
 
     value: Callable = round
     item_key: str | None = None
+
+
+@dataclass
+class GoXLRUtilityLightEntityDescription(LightEntityDescription):
+    """Class describing GoXLR Utility light entities."""
+
+    item_type: ItemType = ItemType.ACCENT
+    item_key: str = ""
+    hex: Callable = round
 
 
 @dataclass

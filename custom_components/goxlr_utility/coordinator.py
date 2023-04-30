@@ -38,12 +38,11 @@ class GoXLRUtilityDataUpdateCoordinator(DataUpdateCoordinator[Mixer]):
         entry: ConfigEntry,
     ) -> None:
         """Initialize global GoXLR Utility data updater."""
-        self.title = entry.title
-        self.unsub: CALLBACK_TYPE | None = None
-
         self._entry_data: dict[str, Any] = entry.data.copy()
         self._listener_task: Task | None = None
-        self._websocket_client: WebsocketClient | None = None
+        self.client: WebsocketClient | None = None
+        self.title = entry.title
+        self.unsub: CALLBACK_TYPE | None = None
 
         super().__init__(
             hass,
@@ -60,18 +59,18 @@ class GoXLRUtilityDataUpdateCoordinator(DataUpdateCoordinator[Mixer]):
     async def setup(self) -> None:
         """Set up connection to Websocket."""
 
-        self._websocket_client = await setup_connection(
+        self.client = await setup_connection(
             self.hass,
             self._entry_data.copy(),
         )
 
         async def listen_for_patches() -> None:
             """Listen for patches from GoXLR Utility."""
-            if self._websocket_client is None:
+            if self.client is None:
                 raise ConfigEntryNotReady("Websocket not connected")
 
             try:
-                await self._websocket_client.listen(self.patch_callback)
+                await self.client.listen(self.patch_callback)
             except (ConnectionClosedException, ConnectionResetError) as exception:
                 self.logger.debug(
                     "Websocket connection closed for %s. Will retry: %s",
@@ -112,16 +111,16 @@ class GoXLRUtilityDataUpdateCoordinator(DataUpdateCoordinator[Mixer]):
 
     async def cleanup(self) -> None:
         """Disconnect and cleanup items."""
-        if self._websocket_client is not None:
-            await self._websocket_client.disconnect()
+        if self.client is not None:
+            await self.client.disconnect()
 
     async def _get_mixer(self) -> Mixer:
         """Get mixer from GoXLR Utility."""
-        if self._websocket_client is None or not self._websocket_client.connected:
+        if self.client is None or not self.client.connected:
             raise ConfigEntryNotReady("Websocket not connected")
 
         # Get status and mixer
-        status = await self._websocket_client.get_status()
+        status = await self.client.get_status()
         mixer = get_mixer_from_status(status)
         if mixer is None:
             raise ConfigEntryNotReady("No mixer found")
@@ -167,8 +166,8 @@ class GoXLRUtilityDataUpdateCoordinator(DataUpdateCoordinator[Mixer]):
     async def _async_update_data(self) -> Mixer:
         """Update GoXLR Utility data from WebSocket."""
         if (
-            self._websocket_client is None
-            or not self._websocket_client.connected
+            self.client is None
+            or not self.client.connected
             or self._listener_task is None
         ):
             try:

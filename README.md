@@ -30,16 +30,20 @@ This integration is available in the [Home Assistant Community Store](https://ha
 - Button Pressed
 - Volume
 
+### Lights
+
+- Accent
+- Buttons (Inactive, Active)
+- Faders (Bottom, Top)
+
 ## Planned Features
 
 > Not all these features may be possible, but are ideas for the future.
 
-- Add [logos](https://github.com/GoXLR-on-Linux/goxlr-utility/tree/main/daemon/resources) to the brands repo
+- Add [logos](https://github.com/GoXLR-on-Linux/goxlr-utility/tree/main/daemon/resources) to the brands repo.
 
 <!-- ### Binary Sensors -->
+<!-- ### Lights -->
 <!-- ### Sensors -->
-### Lights
-
-- Accent
-- Buttons
-- Faders
+<!-- ### Services -->
+<!-- ### Switches -->

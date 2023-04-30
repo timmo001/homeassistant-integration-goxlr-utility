@@ -67,7 +67,6 @@ async def async_setup_entry(
                 name=f"{map_item.name if map_item else key} pressed",
                 icon=map_item.icon if map_item else "mdi:button-pointer",
                 entity_category=EntityCategory.DIAGNOSTIC,
-                entity_registry_visible_default=False,
                 value=lambda data, item_key=key: data.button_down.__dict__.get(
                     item_key, None
                 ),

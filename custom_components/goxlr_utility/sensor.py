@@ -3,7 +3,9 @@ from __future__ import annotations
 
 from typing import Any, cast
 
+from goxlrutilityapi.const import NAME_MAP
 from goxlrutilityapi.helper import get_volume_percentage
+from goxlrutilityapi.models.map_item import MapItem
 
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
@@ -15,79 +17,6 @@ from .const import DOMAIN
 from .coordinator import GoXLRUtilityDataUpdateCoordinator
 from .entity import GoXLRUtilityEntity, GoXLRUtilitySensorEntityDescription
 
-SENSOR_TYPES: tuple[GoXLRUtilitySensorEntityDescription, ...] = (
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_chat",
-        name="Chat Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "chat"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_console",
-        name="Console Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "console"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_headphones",
-        name="Headphones Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "headphones"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_line_in",
-        name="Line In Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "line_in"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_line_out",
-        name="Line Out Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "line_out"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_mic_monitor",
-        name="Microphone Monitor Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "mic_monitor"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_microphone",
-        name="Microphone Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "mic"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_music",
-        name="Music Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "music"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_sample",
-        name="Sample Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "sample"),
-    ),
-    GoXLRUtilitySensorEntityDescription(
-        key="volume_system",
-        name="System Volume",
-        native_unit_of_measurement="%",
-        icon="mdi:volume-medium",
-        value=lambda data: get_volume_percentage(data, "system"),
-    ),
-)
-
 
 async def async_setup_entry(
     hass: HomeAssistant,
@@ -97,8 +26,21 @@ async def async_setup_entry(
     """Set up GoXLR Utility sensor based on a config entry."""
     coordinator: GoXLRUtilityDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
+    sensor_descrpitions = []
+    for key in coordinator.data.levels.volumes.__dict__:
+        map_item: MapItem | None = NAME_MAP.get(key)
+        sensor_descrpitions.append(
+            GoXLRUtilitySensorEntityDescription(
+                key=f"volume_{key}",
+                name=f"{map_item.name if map_item else key} volume",
+                native_unit_of_measurement="%",
+                icon=map_item.icon if map_item else "mdi:volume-high",
+                value=lambda data, key=key: get_volume_percentage(data, key),
+            )
+        )
+
     entities = []
-    for description in SENSOR_TYPES:
+    for description in sensor_descrpitions:
         entities.append(
             GoXLRUtilitySensor(
                 coordinator,

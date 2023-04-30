@@ -40,15 +40,25 @@ async def async_setup_entry(
             )
         )
 
-    sensor_descrpitions.append(
-        GoXLRUtilitySensorEntityDescription(
-            key="microphone_profile_name",
-            name="Microphone profile name",
-            icon="mdi:microphone",
-            entity_category=EntityCategory.DIAGNOSTIC,
-            entity_registry_visible_default=False,
-            value=lambda data: data.mic_profile_name,
-        )
+    sensor_descrpitions.extend(
+        [
+            GoXLRUtilitySensorEntityDescription(
+                key="profile_name",
+                name="Profile name",
+                icon="mdi:headphones-settings",
+                entity_category=EntityCategory.DIAGNOSTIC,
+                entity_registry_visible_default=False,
+                value=lambda data: data.profile_name,
+            ),
+            GoXLRUtilitySensorEntityDescription(
+                key="microphone_profile_name",
+                name="Microphone profile name",
+                icon="mdi:microphone-settings",
+                entity_category=EntityCategory.DIAGNOSTIC,
+                entity_registry_visible_default=False,
+                value=lambda data: data.mic_profile_name,
+            ),
+        ]
     )
 
     entities = []

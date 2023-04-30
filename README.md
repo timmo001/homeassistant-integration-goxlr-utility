@@ -23,11 +23,11 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 ### Binary Sensors
 
+- Button Pressed
 - Slider muted
 
 ### Sensors
 
-- Button Pressed
 - Volume
 
 ### Lights

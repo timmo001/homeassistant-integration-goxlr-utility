@@ -27,6 +27,7 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 ### Sensors
 
+- Button Pressed
 - Volume
 
 ## Planned Features
@@ -39,9 +40,7 @@ This integration is available in the [Home Assistant Community Store](https://ha
 
 - Lighting
 
-### Binary Sensors
-
-- Button Pressed
+<!-- ### Binary Sensors -->
 
 ### Sensors
 

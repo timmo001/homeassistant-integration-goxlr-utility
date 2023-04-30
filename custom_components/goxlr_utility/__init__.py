@@ -35,7 +35,7 @@ async def async_setup_entry(
     try:
         await coordinator.setup()
     except (asyncio.TimeoutError, CannotConnect) as exception:
-        raise ConfigEntryNotReady from exception
+        raise ConfigEntryNotReady(exception) from exception
 
     await coordinator.async_config_entry_first_refresh()
 

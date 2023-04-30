@@ -1,6 +1,7 @@
 """Coordinator for GoXLR Utility integration."""
 from __future__ import annotations
 
+import asyncio
 from asyncio import Task
 from datetime import timedelta
 import logging
@@ -23,7 +24,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator
 
 from .const import DOMAIN
-from .helper import setup_connection
+from .helper import CannotConnect, setup_connection
 
 
 class GoXLRUtilityDataUpdateCoordinator(DataUpdateCoordinator[Mixer]):
@@ -170,7 +171,10 @@ class GoXLRUtilityDataUpdateCoordinator(DataUpdateCoordinator[Mixer]):
             or not self._websocket_client.connected
             or self._listener_task is None
         ):
-            await self.setup()
+            try:
+                await self.setup()
+            except (asyncio.TimeoutError, CannotConnect) as exception:
+                self.logger.info("Could not connect to GoXLR Utility: %s", exception)
 
         if self.data is None:
             mixer: Mixer = await self._get_mixer()

@@ -68,6 +68,7 @@ class GoXLRUtilityBinarySensorEntityDescription(BinarySensorEntityDescription):
     """Class describing GoXLR Utility binary sensor entities."""
 
     value: Callable = round
+    item_key: str | None = None
 
 
 @dataclass

@@ -4,20 +4,15 @@ from __future__ import annotations
 from typing import Any
 
 from goxlrutilityapi.const import MUTED_STATE
-
 from homeassistant.components.binary_sensor import BinarySensorEntity
 from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import EntityCategory
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import DOMAIN
+from .const import DOMAIN, NAME_MAP
 from .coordinator import GoXLRUtilityDataUpdateCoordinator
 from .entity import GoXLRUtilityBinarySensorEntityDescription, GoXLRUtilityEntity
-
-NAME_MAP = {
-    "Mic": "Microphone",
-    "LineIn": "Line In",
-}
 
 
 async def async_setup_entry(
@@ -57,15 +52,19 @@ async def async_setup_entry(
         ),
     ]
 
-    # for key, field in coordinator.data.button_down.__fields__.items():
-    #     binary_sensor_descrpitions.append(
-    #         GoXLRUtilityBinarySensorEntityDescription(
-    #             key=f"button_{key}",
-    #             name=f"Button {field.} pressed",
-    #             icon="mdi:gesture-tap-button",
-    #             # value=lambda data: data.button_down[key],
-    #         )
-    #     )
+    for key in coordinator.data.button_down.__dict__:
+        binary_sensor_descrpitions.append(
+            GoXLRUtilityBinarySensorEntityDescription(
+                key=f"button_{key}",
+                name=f"{NAME_MAP.get(key, key)} pressed",
+                icon="mdi:button-pointer",
+                entity_category=EntityCategory.DIAGNOSTIC,
+                entity_registry_visible_default=False,
+                value=lambda data, item_key=key: data.button_down.__dict__.get(
+                    item_key, None
+                ),
+            )
+        )
 
     entities = []
     for description in binary_sensor_descrpitions:

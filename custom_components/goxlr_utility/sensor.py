@@ -28,7 +28,7 @@ async def async_setup_entry(
     coordinator: GoXLRUtilityDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
     sensor_descrpitions = []
-    for key in coordinator.data.levels.volumes.__dict__:
+    for key in vars(coordinator.data.levels.volumes):
         map_item: MapItem | None = NAME_MAP.get(key)
         sensor_descrpitions.append(
             GoXLRUtilitySensorEntityDescription(

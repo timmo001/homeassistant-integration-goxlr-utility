@@ -38,14 +38,16 @@ async def async_setup_entry(
         ),
     ]
 
-    for key in coordinator.data.lighting.buttons.__dict__:
+    for key in vars(coordinator.data.lighting.buttons):
         button_map_item: MapItem | None = NAME_MAP.get(key)
         light_descrpitions.extend(
             [
                 GoXLRUtilityLightEntityDescription(
                     key=f"light_button_{key}_active",
-                    name=f"{button_map_item.name if button_map_item else key} active",
-                    icon=button_map_item.icon if button_map_item else None,
+                    name=f"{button_map_item.name if button_map_item and button_map_item.name else key} active",
+                    icon=button_map_item.icon
+                    if button_map_item and button_map_item.icon
+                    else None,
                     item_type=ItemType.BUTTON_ACTIVE,
                     item_key=key,
                     hex=lambda data, item_key: getattr(
@@ -54,8 +56,10 @@ async def async_setup_entry(
                 ),
                 GoXLRUtilityLightEntityDescription(
                     key=f"light_button_{key}_inactive",
-                    name=f"{button_map_item.name if button_map_item else key} inactive",
-                    icon=button_map_item.icon if button_map_item else None,
+                    name=f"{button_map_item.name if button_map_item and button_map_item.name else key} inactive",
+                    icon=button_map_item.icon
+                    if button_map_item and button_map_item.icon
+                    else None,
                     item_type=ItemType.BUTTON_INACTIVE,
                     item_key=key,
                     hex=lambda data, item_key: getattr(
@@ -65,14 +69,16 @@ async def async_setup_entry(
             ]
         )
 
-    for key in coordinator.data.lighting.faders.__dict__:
+    for key in vars(coordinator.data.lighting.faders):
         fader_map_item: MapItem | None = NAME_MAP.get(key)
         light_descrpitions.extend(
             [
                 GoXLRUtilityLightEntityDescription(
                     key=f"light_fader_{key}_top",
-                    name=f"{fader_map_item.name if fader_map_item else key} top",
-                    icon=fader_map_item.icon if fader_map_item else None,
+                    name=f"{fader_map_item.name if fader_map_item and fader_map_item.name else key} top",
+                    icon=fader_map_item.icon
+                    if fader_map_item and fader_map_item.icon
+                    else None,
                     item_type=ItemType.FADER_TOP,
                     item_key=key,
                     hex=lambda data, item_key: getattr(
@@ -81,8 +87,10 @@ async def async_setup_entry(
                 ),
                 GoXLRUtilityLightEntityDescription(
                     key=f"light_fader_{key}_bottom",
-                    name=f"{fader_map_item.name if fader_map_item else key} bottom",
-                    icon=fader_map_item.icon if fader_map_item else None,
+                    name=f"{fader_map_item.name if fader_map_item and fader_map_item.name else key} bottom",
+                    icon=fader_map_item.icon
+                    if fader_map_item and fader_map_item.icon
+                    else None,
                     item_type=ItemType.FADER_BOTTOM,
                     item_key=key,
                     hex=lambda data, item_key: getattr(

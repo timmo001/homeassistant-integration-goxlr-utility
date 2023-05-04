@@ -35,31 +35,31 @@ async def async_setup_entry(
     binary_sensor_descrpitions = [
         GoXLRUtilityBinarySensorEntityDescription(
             key=f"muted_{fader_status.a.channel.lower()}",
-            name=f"{fader_a.name if fader_a else fader_status.a.channel} muted",
-            icon=fader_a.icon if fader_a else "mdi:volume-off",
+            name=f"{fader_a.name if fader_a and fader_a.name else fader_status.a.channel} muted",
+            icon=fader_a.icon if fader_a and fader_a.icon else "mdi:volume-off",
             value=lambda data: data.fader_status.a.mute_state == MUTED_STATE,
         ),
         GoXLRUtilityBinarySensorEntityDescription(
             key=f"muted_{fader_status.b.channel.lower()}",
-            name=f"{fader_b.name if fader_b else fader_status.b.channel} muted",
-            icon=fader_b.icon if fader_b else "mdi:volume-off",
+            name=f"{fader_b.name if fader_b and fader_b.name else fader_status.b.channel} muted",
+            icon=fader_b.icon if fader_b and fader_b.icon else "mdi:volume-off",
             value=lambda data: data.fader_status.b.mute_state == MUTED_STATE,
         ),
         GoXLRUtilityBinarySensorEntityDescription(
             key=f"muted_{fader_status.c.channel.lower()}",
-            name=f"{fader_c.name if fader_c else fader_status.c.channel} muted",
-            icon=fader_c.icon if fader_c else "mdi:volume-off",
+            name=f"{fader_c.name if fader_c and fader_c.name else fader_status.c.channel} muted",
+            icon=fader_c.icon if fader_c and fader_c.icon else "mdi:volume-off",
             value=lambda data: data.fader_status.c.mute_state == MUTED_STATE,
         ),
         GoXLRUtilityBinarySensorEntityDescription(
             key=f"muted_{fader_status.d.channel.lower()}",
-            name=f"{fader_d.name if fader_d else fader_status.d.channel} muted",
-            icon=fader_d.icon if fader_d else "mdi:volume-off",
+            name=f"{fader_d.name if fader_d and fader_d.name else fader_status.d.channel} muted",
+            icon=fader_d.icon if fader_d and fader_d.icon else "mdi:volume-off",
             value=lambda data: data.fader_status.d.mute_state == MUTED_STATE,
         ),
     ]
 
-    for key in coordinator.data.button_down.__dict__:
+    for key in vars(coordinator.data.button_down):
         map_item: MapItem | None = NAME_MAP.get(key)
         binary_sensor_descrpitions.append(
             GoXLRUtilityBinarySensorEntityDescription(

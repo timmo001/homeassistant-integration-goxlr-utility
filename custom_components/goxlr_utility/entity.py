@@ -91,7 +91,6 @@ class GoXLRUtilityLightEntityDescription(LightEntityDescription):
 
     item_type: ItemType = ItemType.ACCENT
     item_key: str = ""
-    hex: Callable = round
 
 
 @dataclass

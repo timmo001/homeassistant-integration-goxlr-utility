@@ -34,7 +34,6 @@ async def async_setup_entry(
             name="Accent",
             icon="mdi:television-ambient-light",
             item_type=ItemType.ACCENT,
-            hex=lambda data, _: data.lighting.simple.accent.colour_one,
         ),
     ]
 
@@ -50,9 +49,6 @@ async def async_setup_entry(
                     else None,
                     item_type=ItemType.BUTTON_ACTIVE,
                     item_key=key,
-                    hex=lambda data, item_key: getattr(
-                        data.lighting.buttons, item_key
-                    ).colours.colour_one,
                 ),
                 GoXLRUtilityLightEntityDescription(
                     key=f"light_button_{key}_inactive",
@@ -62,9 +58,6 @@ async def async_setup_entry(
                     else None,
                     item_type=ItemType.BUTTON_INACTIVE,
                     item_key=key,
-                    hex=lambda data, item_key: getattr(
-                        data.lighting.buttons, item_key
-                    ).colours.colour_two,
                 ),
             ]
         )
@@ -81,9 +74,6 @@ async def async_setup_entry(
                     else None,
                     item_type=ItemType.FADER_TOP,
                     item_key=key,
-                    hex=lambda data, item_key: getattr(
-                        data.lighting.faders, item_key
-                    ).colours.colour_one,
                 ),
                 GoXLRUtilityLightEntityDescription(
                     key=f"light_fader_{key}_bottom",
@@ -93,9 +83,6 @@ async def async_setup_entry(
                     else None,
                     item_type=ItemType.FADER_BOTTOM,
                     item_key=key,
-                    hex=lambda data, item_key: getattr(
-                        data.lighting.faders, item_key
-                    ).colours.colour_two,
                 ),
             ]
         )
@@ -143,10 +130,34 @@ class GoXLRUtilityLight(GoXLRUtilityEntity, LightEntity):
     @property
     def rgb_color(self) -> tuple[int, int, int] | None:
         """Return the rgb color value [int, int, int]."""
-        hex_value = self.entity_description.hex(
-            self.coordinator.data,
-            self.entity_description.item_key,
-        )
+        hex_value: str | None = None
+        if self.entity_description.item_type == ItemType.ACCENT:
+            hex_value = self.coordinator.data.lighting.simple.accent.colour_one
+        elif self.entity_description.item_type == ItemType.BUTTON_ACTIVE:
+            item = getattr(
+                self.coordinator.data.lighting.buttons,
+                self.entity_description.item_key,
+            )
+            hex_value = item.colours.colour_one if item else None
+        elif self.entity_description.item_type == ItemType.BUTTON_INACTIVE:
+            item = getattr(
+                self.coordinator.data.lighting.buttons,
+                self.entity_description.item_key,
+            )
+            hex_value = item.colours.colour_two if item else None
+        elif self.entity_description.item_type == ItemType.FADER_TOP:
+            item = getattr(
+                self.coordinator.data.lighting.faders,
+                self.entity_description.item_key,
+            )
+            hex_value = item.colours.colour_one if item else None
+        elif self.entity_description.item_type == ItemType.FADER_BOTTOM:
+            item = getattr(
+                self.coordinator.data.lighting.faders,
+                self.entity_description.item_key,
+            )
+            hex_value = item.colours.colour_two if item else None
+
         return (
             cast(tuple[int, int, int], tuple(color_util.rgb_hex_to_rgb_list(hex_value)))
             if hex_value

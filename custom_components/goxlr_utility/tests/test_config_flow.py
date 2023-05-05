@@ -33,13 +33,15 @@ async def test_form(
     assert "type" in result and result["type"] == FlowResultType.FORM
     assert "errors" in result and result["errors"] == {}
 
-    with patch("goxlrutilityapi.websocket_client.WebsocketClient.connect"), patch(
-        "goxlrutilityapi.websocket_client.WebsocketClient.listen"
+    with patch(
+        "goxlrutilityapi.websocket_client.WebsocketClient.connect",
+    ), patch(
+        "goxlrutilityapi.websocket_client.WebsocketClient.listen",
     ), patch(
         "goxlrutilityapi.websocket_client.WebsocketClient.get_status",
         return_value=fixture_status,
     ), patch(
-        "goxlrutilityapi.websocket_client.WebsocketClient.disconnect"
+        "goxlrutilityapi.websocket_client.WebsocketClient.disconnect",
     ):
         result2 = await hass.config_entries.flow.async_configure(
             result["flow_id"],
@@ -59,7 +61,7 @@ async def test_form(
     assert len(mock_setup_entry.mock_calls) == 1
 
 
-async def test_form_cannot_connect(hass: HomeAssistant) -> None:
+async def test_form_connection_error(hass: HomeAssistant) -> None:
     """Test we handle cannot connect error."""
     result = await hass.config_entries.flow.async_init(
         DOMAIN,
@@ -82,3 +84,34 @@ async def test_form_cannot_connect(hass: HomeAssistant) -> None:
 
     assert "type" in result2 and result2["type"] == FlowResultType.FORM
     assert "errors" in result2 and result2["errors"] == {"base": "cannot_connect"}
+
+
+async def test_form_bad_message(hass: HomeAssistant) -> None:
+    """Test we handle cannot connect error."""
+    result = await hass.config_entries.flow.async_init(
+        DOMAIN,
+        context={
+            "source": config_entries.SOURCE_USER,
+        },
+    )
+
+    with patch(
+        "goxlrutilityapi.websocket_client.WebsocketClient.connect",
+    ), patch(
+        "goxlrutilityapi.websocket_client.WebsocketClient._listen_for_messages",
+    ), patch(
+        "goxlrutilityapi.websocket_client.WebsocketClient._send_message",
+        return_value=None,
+    ), patch(
+        "goxlrutilityapi.websocket_client.WebsocketClient.disconnect"
+    ):
+        result2 = await hass.config_entries.flow.async_configure(
+            result["flow_id"],
+            {
+                CONF_HOST: DEFAULT_HOST,
+                CONF_PORT: DEFAULT_PORT,
+            },
+        )
+
+    assert "type" in result2 and result2["type"] == FlowResultType.FORM
+    assert "errors" in result2 and result2["errors"] == {"base": "unknown"}

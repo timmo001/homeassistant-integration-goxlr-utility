@@ -44,8 +44,12 @@ select = ["ALL"]
 ignore = [
   "ANN101", # Self... explanatory
   "ANN401", # Opiniated warning on disallowing dynamically typed expressions
+  "BLE001", # Allow exception in config_flow
   "D203", # Conflicts with other rules
   "D213", # Conflicts with other rules
+  "E501", # Handled by black
+  "I001", # isort handles this
+  "TCH002", # Move third-party import
   "TID252", # Relative imports
 ]
 

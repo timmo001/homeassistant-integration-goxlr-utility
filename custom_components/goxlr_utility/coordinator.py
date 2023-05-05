@@ -11,7 +11,10 @@ from goxlrutilityapi.exceptions import (
     ConnectionClosedException,
     ConnectionErrorException,
 )
-from goxlrutilityapi.helper import get_attribute_names_from_patch, get_mixer_from_status
+from goxlrutilityapi.helpers import (
+    get_attribute_names_from_patch,
+    get_mixer_from_status,
+)
 from goxlrutilityapi.models.patch import Patch
 from goxlrutilityapi.models.response import Response
 from goxlrutilityapi.models.status import Mixer

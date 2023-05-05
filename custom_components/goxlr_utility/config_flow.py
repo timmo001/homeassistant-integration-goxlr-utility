@@ -6,7 +6,7 @@ import logging
 from typing import Any
 
 from goxlrutilityapi.const import DEFAULT_PORT
-from goxlrutilityapi.helper import get_mixer_from_status
+from goxlrutilityapi.helpers import get_mixer_from_status
 from goxlrutilityapi.websocket_client import WebsocketClient
 import voluptuous as vol
 

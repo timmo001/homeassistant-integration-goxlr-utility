@@ -29,7 +29,6 @@
 - name: "dependencies"
   color: 1d76db
   description: "Upgrade or downgrade of project dependencies."
-
 - name: "in-progress"
   color: fbca04
   description: "Issue is currently being resolved by a developer."
@@ -39,7 +38,6 @@
 - name: "no-stale"
   color: fef2c0
   description: "This issue or PR is exempted from the stable bot."
-
 - name: "security"
   color: ee0701
   description: "Marks a security issue that needs to be resolved asap."
@@ -49,21 +47,18 @@
 - name: "invalid"
   color: fef2c0
   description: "Marks a PR or issue that is missing information."
-
 - name: "beginner-friendly"
   color: 0e8a16
   description: "Good first issue for people wanting to contribute to the project."
 - name: "help-wanted"
   color: 0e8a16
   description: "We need some extra helping hands or expertise in order to resolve this."
-
 - name: "hacktoberfest"
   description: "Issues/PRs are participating in the Hacktoberfest."
   color: fbca04
 - name: "hacktoberfest-accepted"
   description: "Issues/PRs are participating in the Hacktoberfest."
   color: fbca04
-
 - name: "priority-critical"
   color: ee0701
   description: "This should be dealt with ASAP. Not fixing this issue would be a serious error."
@@ -76,7 +71,6 @@
 - name: "priority-low"
   color: e4ea8a
   description: "Nice addition, maybe... someday..."
-
 - name: "major"
   color: b60205
   description: "This PR causes a major version bump in the version number."

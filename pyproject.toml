@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "goxlr_utility"
+version = "0.0.0"
+description = "GoXLR Utility integration for Home Assistant"
+authors = ["Aidan Timson <contact@timmo.dev>"]
+maintainers = ["Aidan Timson <contact@timmo.dev>"]
+license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/timmo001/homeassistant-integration-goxlr-utility"
+repository = "https://github.com/timmo001/homeassistant-integration-goxlr-utility"
+documentation = "https://github.com/timmo001/homeassistant-integration-goxlr-utility"
+classifiers = [
+  "Framework :: AsyncIO",
+  "Natural Language :: English",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3",
+]
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.10"
+homeassistant = "^2023.3"
+goxlrutilityapi = "^1.1.3"
+
+[tool.poetry.group.dev.dependencies]
+black = "23.3.0"
+hass-nabucasa = "0.67.1"
+pre-commit = "3.3.1"
+pre-commit-hooks = "4.4.0"
+pylint = "2.17.3"
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/timmo001/homeassistant-integration-goxlr-utility/issues"
+Changelog = "https://github.com/timmo001/homeassistant-integration-goxlr-utility/releases"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint."MESSAGES CONTROL"]
+# Reasons disabled:
+# format - handled by black
+# duplicate-code - unavoidable
+# used-before-assignment - false positives with TYPE_CHECKING structures
+disable = [
+    "duplicate-code",
+    "format",
+    "too-many-ancestors",
+    "too-many-instance-attributes",
+    "used-before-assignment",
+]

@@ -28,7 +28,6 @@ black = "23.3.0"
 hass-nabucasa = "0.67.1"
 pre-commit = "3.3.1"
 pre-commit-hooks = "4.4.0"
-ruff = "0.0.264"
 pylint = "2.17.3"
 
 [tool.poetry.urls]
@@ -38,30 +37,6 @@ Changelog = "https://github.com/timmo001/homeassistant-integration-goxlr-utility
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.ruff]
-src = ["custom_components/goxlr_utility"]
-select = ["ALL"]
-exclude = ["tests"]
-ignore = [
-  "ANN101", # Self... explanatory
-  "ANN401", # Opiniated warning on disallowing dynamically typed expressions
-  "BLE001", # Allow exception in config_flow
-  "D203", # Conflicts with other rules
-  "D213", # Conflicts with other rules
-  "E501", # Handled by black
-  "I001", # isort handles this
-  "TCH002", # Move third-party import
-  "TID252", # Relative imports
-]
-
-[tool.ruff.flake8-import-conventions.extend-aliases]
-voluptuous = "vol"
-"homeassistant.helpers.area_registry" = "ar"
-"homeassistant.helpers.config_validation" = "cv"
-"homeassistant.helpers.device_registry" = "dr"
-"homeassistant.helpers.entity_registry" = "er"
-"homeassistant.helpers.issue_registry" = "ir"
 
 [tool.pylint."MESSAGES CONTROL"]
 # Reasons disabled:

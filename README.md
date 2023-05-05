@@ -6,6 +6,8 @@
 
 Be sure to check out the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) project for more information.
 
+<img width="1168" alt="screenshot" src="https://user-images.githubusercontent.com/28114703/236408810-50061d16-7b16-4065-9b52-143b8e4a3ea6.png">
+
 ## Installation
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=timmo001&repository=homeassistant-integration-goxlr-utility&category=integration)

@@ -68,7 +68,9 @@ voluptuous = "vol"
 # duplicate-code - unavoidable
 # used-before-assignment - false positives with TYPE_CHECKING structures
 disable = [
-    "format",
     "duplicate-code",
+    "format",
+    "too-many-ancestors",
+    "too-many-instance-attributes",
     "used-before-assignment",
 ]

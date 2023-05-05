@@ -6,7 +6,7 @@
 
 Be sure to check out the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) project for more information.
 
-<img width="1168" alt="screenshot" src="https://user-images.githubusercontent.com/28114703/236408810-50061d16-7b16-4065-9b52-143b8e4a3ea6.png">
+![Screenshot](https://user-images.githubusercontent.com/28114703/236408810-50061d16-7b16-4065-9b52-143b8e4a3ea6.png)
 
 ## Installation
 

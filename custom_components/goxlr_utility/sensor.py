@@ -4,7 +4,7 @@ from __future__ import annotations
 from typing import Any, cast
 
 from goxlrutilityapi.const import NAME_MAP
-from goxlrutilityapi.helper import get_volume_percentage
+from goxlrutilityapi.helpers import get_volume_percentage
 from goxlrutilityapi.models.map_item import MapItem
 
 from homeassistant.components.sensor import SensorEntity

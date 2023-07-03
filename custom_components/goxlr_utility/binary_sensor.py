@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
-from goxlrutilityapi.const import MUTED_STATE, NAME_MAP
+from goxlrutilityapi.const import NAME_MAP
 from goxlrutilityapi.models.map_item import MapItem
 
 from homeassistant.components.binary_sensor import BinarySensorEntity
@@ -25,43 +25,10 @@ async def async_setup_entry(
     """Set up GoXLR Utility sensor based on a config entry."""
     coordinator: GoXLRUtilityDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
-    fader_status = coordinator.data.fader_status
-
-    fader_a: MapItem | None = NAME_MAP.get(fader_status.a.channel)
-    fader_b: MapItem | None = NAME_MAP.get(fader_status.b.channel)
-    fader_c: MapItem | None = NAME_MAP.get(fader_status.c.channel)
-    fader_d: MapItem | None = NAME_MAP.get(fader_status.d.channel)
-
-    binary_sensor_descrpitions = [
-        GoXLRUtilityBinarySensorEntityDescription(
-            key=f"muted_{fader_status.a.channel.lower()}",
-            name=f"{fader_a.name if fader_a and fader_a.name else fader_status.a.channel} muted",
-            icon=fader_a.icon if fader_a and fader_a.icon else "mdi:volume-off",
-            value=lambda data: data.fader_status.a.mute_state == MUTED_STATE,
-        ),
-        GoXLRUtilityBinarySensorEntityDescription(
-            key=f"muted_{fader_status.b.channel.lower()}",
-            name=f"{fader_b.name if fader_b and fader_b.name else fader_status.b.channel} muted",
-            icon=fader_b.icon if fader_b and fader_b.icon else "mdi:volume-off",
-            value=lambda data: data.fader_status.b.mute_state == MUTED_STATE,
-        ),
-        GoXLRUtilityBinarySensorEntityDescription(
-            key=f"muted_{fader_status.c.channel.lower()}",
-            name=f"{fader_c.name if fader_c and fader_c.name else fader_status.c.channel} muted",
-            icon=fader_c.icon if fader_c and fader_c.icon else "mdi:volume-off",
-            value=lambda data: data.fader_status.c.mute_state == MUTED_STATE,
-        ),
-        GoXLRUtilityBinarySensorEntityDescription(
-            key=f"muted_{fader_status.d.channel.lower()}",
-            name=f"{fader_d.name if fader_d and fader_d.name else fader_status.d.channel} muted",
-            icon=fader_d.icon if fader_d and fader_d.icon else "mdi:volume-off",
-            value=lambda data: data.fader_status.d.mute_state == MUTED_STATE,
-        ),
-    ]
-
+    binary_sensor_descriptions = []
     for key in vars(coordinator.data.button_down):
         map_item: MapItem | None = NAME_MAP.get(key)
-        binary_sensor_descrpitions.append(
+        binary_sensor_descriptions.append(
             GoXLRUtilityBinarySensorEntityDescription(
                 key=f"button_{key}",
                 name=f"{map_item.name if map_item else key} pressed",
@@ -74,7 +41,7 @@ async def async_setup_entry(
         )
 
     entities = []
-    for description in binary_sensor_descrpitions:
+    for description in binary_sensor_descriptions:
         entities.append(
             GoXLRUtilitySensor(
                 coordinator,

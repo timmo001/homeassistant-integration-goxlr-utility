@@ -3,10 +3,6 @@ from __future__ import annotations
 
 from typing import Any, cast
 
-from goxlrutilityapi.const import NAME_MAP
-from goxlrutilityapi.helpers import get_volume_percentage
-from goxlrutilityapi.models.map_item import MapItem
-
 from homeassistant.components.sensor import SensorEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import EntityCategory
@@ -27,50 +23,33 @@ async def async_setup_entry(
     """Set up GoXLR Utility sensor based on a config entry."""
     coordinator: GoXLRUtilityDataUpdateCoordinator = hass.data[DOMAIN][entry.entry_id]
 
-    sensor_descrpitions = []
-    for key in vars(coordinator.data.levels.volumes):
-        map_item: MapItem | None = NAME_MAP.get(key)
-        sensor_descrpitions.append(
-            GoXLRUtilitySensorEntityDescription(
-                key=f"volume_{key}",
-                name=f"{map_item.name if map_item else key} volume",
-                native_unit_of_measurement="%",
-                icon=map_item.icon if map_item else "mdi:volume-high",
-                value=lambda data, key=key: get_volume_percentage(data, key),
-            )
+    sensor_descriptions: list[GoXLRUtilitySensorEntityDescription] = [
+        GoXLRUtilitySensorEntityDescription(
+            key="profile_name",
+            name="Profile name",
+            icon="mdi:headphones-settings",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_visible_default=False,
+            value=lambda data: data.profile_name,
+        ),
+        GoXLRUtilitySensorEntityDescription(
+            key="microphone_profile_name",
+            name="Microphone profile name",
+            icon="mdi:microphone-settings",
+            entity_category=EntityCategory.DIAGNOSTIC,
+            entity_registry_visible_default=False,
+            value=lambda data: data.mic_profile_name,
+        ),
+    ]
+
+    entities = [
+        GoXLRUtilitySensor(
+            coordinator,
+            description,
+            entry.data.copy(),
         )
-
-    sensor_descrpitions.extend(
-        [
-            GoXLRUtilitySensorEntityDescription(
-                key="profile_name",
-                name="Profile name",
-                icon="mdi:headphones-settings",
-                entity_category=EntityCategory.DIAGNOSTIC,
-                entity_registry_visible_default=False,
-                value=lambda data: data.profile_name,
-            ),
-            GoXLRUtilitySensorEntityDescription(
-                key="microphone_profile_name",
-                name="Microphone profile name",
-                icon="mdi:microphone-settings",
-                entity_category=EntityCategory.DIAGNOSTIC,
-                entity_registry_visible_default=False,
-                value=lambda data: data.mic_profile_name,
-            ),
-        ]
-    )
-
-    entities = []
-    for description in sensor_descrpitions:
-        entities.append(
-            GoXLRUtilitySensor(
-                coordinator,
-                description,
-                entry.data.copy(),
-            )
-        )
-
+        for description in sensor_descriptions
+    ]
     async_add_entities(entities)
 
 

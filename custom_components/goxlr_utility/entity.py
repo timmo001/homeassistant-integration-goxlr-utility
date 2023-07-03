@@ -6,9 +6,11 @@ from typing import Any
 
 from homeassistant.components.binary_sensor import BinarySensorEntityDescription
 from homeassistant.components.light import LightEntityDescription
+from homeassistant.components.media_player import MediaPlayerEntityDescription
 from homeassistant.components.sensor import SensorEntityDescription
 from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.helpers.entity import DeviceInfo
+from homeassistant.helpers.typing import UndefinedType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
@@ -33,7 +35,7 @@ class GoXLRUtilityEntity(CoordinatorEntity[GoXLRUtilityDataUpdateCoordinator]):
         coordinator: GoXLRUtilityDataUpdateCoordinator,
         entry_data: dict[str, Any],
         key: str,
-        name: str | None,
+        name: str | UndefinedType | None,
     ) -> None:
         """Initialize the GoXLR Utility entity."""
         super().__init__(coordinator)
@@ -91,6 +93,17 @@ class GoXLRUtilityLightEntityDescription(LightEntityDescription):
 
     item_type: ItemType = ItemType.ACCENT
     item_key: str = ""
+
+
+@dataclass
+class GoXLRUtilityMediaPlayerEntityDescription(MediaPlayerEntityDescription):
+    """Class describing GoXLR Utility media player entities."""
+
+    can_mute: bool = False
+    muted_fn: Callable = round
+    volume_pct_fn: Callable = round
+    set_muted_fn: Callable = round
+    set_volume_fn: Callable = round
 
 
 @dataclass

@@ -6,7 +6,9 @@
 
 Be sure to check out the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) project for more information.
 
-![Screenshot](https://user-images.githubusercontent.com/28114703/236408810-50061d16-7b16-4065-9b52-143b8e4a3ea6.png)
+<img width="366" alt="image" src="https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/f336d195-ef3b-4123-9bee-6042c122244b">
+<img width="373" alt="image" src="https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/a085ef51-7cc4-4206-bd34-79a933152760">
+<img width="375" alt="image" src="https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/c0178a2d-07f1-4188-ad23-d5af7e201b27">
 
 ## Installation
 

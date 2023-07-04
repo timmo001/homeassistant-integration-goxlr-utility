@@ -6,6 +6,8 @@
 
 Be sure to check out the [GoXLR Utility](https://github.com/GoXLR-on-Linux/goxlr-utility) project for more information.
 
+![Screenshot](https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/cb6f6dac-e571-45ce-8848-45c8449ed84c)
+
 ## Installation
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=timmo001&repository=homeassistant-integration-goxlr-utility&category=integration)
@@ -36,9 +38,3 @@ Slider control (volume, muted)
 - Accent
 - Buttons (Inactive, Active)
 - Faders (Bottom, Top)
-
-## Screenshots
-
-![Screenshot](https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/f336d195-ef3b-4123-9bee-6042c122244b)
-![Screenshot](https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/a085ef51-7cc4-4206-bd34-79a933152760)
-![Screenshot](https://github.com/timmo001/homeassistant-integration-goxlr-utility/assets/28114703/c0178a2d-07f1-4188-ad23-d5af7e201b27)

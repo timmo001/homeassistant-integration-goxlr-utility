@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "⬇️ Checkout the repository"
-        uses: actions/checkout@v3.5.3
+        uses: actions/checkout@v3.6.0
       - name: "🔢 Adjust version number"
         shell: bash
         run: |

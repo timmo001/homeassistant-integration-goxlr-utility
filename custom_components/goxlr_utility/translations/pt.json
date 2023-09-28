@@ -1,0 +1,19 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Equipamento já configurado"
+        },
+        "error": {
+            "cannot_connect": "Falha na ligação",
+            "unknown": "Erro inesperado"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Host",
+                    "port": "Porta"
+                }
+            }
+        }
+    }
+}

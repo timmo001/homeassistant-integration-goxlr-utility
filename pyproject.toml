@@ -2,8 +2,8 @@
 name = "goxlr_utility"
 version = "0.0.0"
 description = "GoXLR Utility integration for Home Assistant"
-authors = ["Aidan Timson <contact@timmo.dev>"]
-maintainers = ["Aidan Timson <contact@timmo.dev>"]
+authors = ["Aidan Timson <aidan@timmo.dev>"]
+maintainers = ["Aidan Timson <aidan@timmo.dev>"]
 license = "MIT"
 readme = "README.md"
 homepage = "https://github.com/timmo001/homeassistant-integration-goxlr-utility"
